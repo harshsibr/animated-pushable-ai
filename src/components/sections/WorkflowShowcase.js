@@ -87,7 +87,8 @@ export default function WorkflowShowcase() {
         if (!stage) return;
         const stageW = stage.clientWidth;
         const stageH = stage.clientHeight;
-        const travelLen = (1 / (N + 1)) * 1.5;
+        // 1.5/(N-1) gives large overlap so adjacent cards crossfade with no blank window
+        const travelLen = 1.5 / (N - 1);
 
         let bestPeak = 0;
         let activeIdx = 0;
@@ -118,10 +119,12 @@ export default function WorkflowShowcase() {
           const omt = 1 - tc;
           const x   = omt * omt * startX + 2 * omt * tc * ctrlX + tc * tc * endX;
           const y   = omt * omt * startY + 2 * omt * tc * ctrlY + tc * tc * endY;
-          const peak    = Math.sin(tc * Math.PI);
-          const scale   = 0.72 + 0.28 * peak;
-          const opacity = Math.pow(Math.max(0, peak), 0.5);
-          const blurPx  = (1 - peak) * 14;
+          // Amplify and clip so cards reach full opacity quickly and hold it
+          const rawPeak = Math.sin(tc * Math.PI);
+          const peak    = Math.min(1, rawPeak * 2);
+          const scale   = 0.75 + 0.25 * peak;
+          const opacity = Math.pow(Math.max(0, peak), 0.4);
+          const blurPx  = (1 - peak) * 8;
           const rotate  = (tc - 0.5) * -6;
 
           card.style.transform =
@@ -204,7 +207,7 @@ export default function WorkflowShowcase() {
           <article
             key={i}
             ref={(el) => (cardsRef.current[i] = el)}
-            className="absolute left-1/2 top-1/2 w-[90vw] max-w-[460px] will-change-transform"
+            className="absolute left-1/2 top-1/2 w-[90vw] max-w-[600px] will-change-transform"
             style={{ opacity: 0, filter: "blur(18px)", pointerEvents: "none" }}
           >
             <Card {...wf} />

@@ -4,6 +4,7 @@ import TrustedBy from "@/components/sections/TrustedBy";
 import WorkflowShowcase from "@/components/sections/WorkflowShowcase";
 import Industries from "@/components/sections/Industries";
 import ScrollStory from "@/components/sections/ScrollStory";
+import Pricing from "@/components/sections/Pricing";
 import FAQ from "@/components/sections/FAQ";
 import CTA from "@/components/sections/CTA";
 import Footer from "@/components/sections/Footer";
@@ -23,6 +24,7 @@ export default function HomePage() {
         <ScrollStory />
         {/* "Right Push for Every Industry" — 6-card grid over landscape */}
         <Industries />
+        <Pricing />
         <FAQ />
         <CTA />
       </main>
