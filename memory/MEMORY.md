@@ -1,0 +1,1 @@
+- [Project: Pushable AI landing](project_pushable_ai.md) — Next.js demo for manager review; light theme + landscape hero + red CTAs
